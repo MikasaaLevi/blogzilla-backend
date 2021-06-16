@@ -13,14 +13,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user")
+@Table(name = "bloguser")
 public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(nullable = false, updatable = false)
-	private Long uid;
+	private Long userId;
 	private String uname;
+	@Column(nullable = false, unique = true)
 	private String email;
 	private String phoneNo;
 	@Column(nullable = false)
@@ -39,7 +40,7 @@ public class User {
 	public User(Long uid, String uname, String email, String phoneNo, String password, String role, String dob,
 			Set<Blog> blogs) {
 		super();
-		this.uid = uid;
+		this.userId = uid;
 		this.uname = uname;
 		this.email = email;
 		this.phoneNo = phoneNo;
@@ -49,12 +50,12 @@ public class User {
 		this.blogs = blogs;
 	}
 
-	public Long getUid() {
-		return uid;
+	public Long getuserId() {
+		return userId;
 	}
 
-	public void setUid(Long uid) {
-		this.uid = uid;
+	public void setuserId(Long userId) {
+		this.userId = userId;
 	}
 
 	public String getUname() {
@@ -115,7 +116,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [uid=" + uid + ", uname=" + uname + ", email=" + email + ", phoneNo=" + phoneNo + ", password="
+		return "User [userId=" + userId + ", uname=" + uname + ", email=" + email + ", phoneNo=" + phoneNo + ", password="
 				+ password + ", role=" + role + ", dob=" + dob + ", blogs=" + blogs + "]";
 	}
 	

@@ -20,12 +20,12 @@ public class Blog {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(nullable = false, updatable = false)
+	@Column(name="bid", nullable = false, updatable = false)
 	private Long blogId;
 	private String comments;
 	private String editedOn;
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "uid", nullable = false)
+	@JoinColumn(name = "userId", nullable = false)
 	private User user;
 	@ManyToMany
 	@JoinTable(
