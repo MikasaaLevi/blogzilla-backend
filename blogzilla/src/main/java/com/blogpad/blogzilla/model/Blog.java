@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -22,6 +23,14 @@ public class Blog {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="bid", nullable = false, updatable = false)
 	private Long blogId;
+	@Lob
+	private String blogContent;
+	public String getBlogContent() {
+		return blogContent;
+	}
+	public void setBlogContent(String blogContent) {
+		this.blogContent = blogContent;
+	}
 	private String comments;
 	private String editedOn;
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -38,13 +47,14 @@ public class Blog {
 	public Blog() {
 		super();
 	}
-	public Blog(Long blogId, String comments, String editedOn, User user, Set<Category> categories) {
+	public Blog(Long blogId,String blogContent, String comments, String editedOn, User user, Set<Category> categories) {
 		super();
 		this.blogId = blogId;
 		this.comments = comments;
 		this.editedOn = editedOn;
 		this.user = user;
 		this.categories = categories;
+		this.blogContent = blogContent;
 	}
 	public Long getBlogId() {
 		return blogId;
