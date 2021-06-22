@@ -1,5 +1,6 @@
 package com.blogpad.blogzilla.model;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -12,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Category")
-public class Category {
+public class Category implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

@@ -1,9 +1,14 @@
 package com.blogpad.blogzilla;
 
+import java.util.Arrays;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import com.blogpad.blogzilla.repository.BlogRepo;
 import com.blogpad.blogzilla.repository.CategoryRepo;
@@ -16,32 +21,19 @@ public class BlogZilla {
 		SpringApplication.run(BlogZilla.class, args);
 		
 	}
-	
 	@Bean
-    public CommandLineRunner mappingDemo(BlogRepo blogRepository,
-                                         UserRepo userRepository, CategoryRepo categoryRepository) {
-        return args -> {
-
-/*	            // create a student
-            Student student = new Student("John Doe", 15, "8th");
-
-            // save the student
-            studentRepository.save(student);
-
-            // create three courses
-            Course course1 = new Course("Machine Learning", "ML", 12, 1500);
-            Course course2 = new Course("Database Systems", "DS", 8, 800);
-            Course course3 = new Course("Web Basics", "WB", 10, 0);
-
-            // save courses
-            courseRepository.saveAll(Arrays.asList(course1, course2, course3));
-
-            // add courses to the student
-            student.getCourses().addAll(Arrays.asList(course1, course2, course3));
-
-            // update the student
-            studentRepository.save(student);*/
-        };
-    }
-
+	public CorsFilter corsFilter() {
+		CorsConfiguration corsConfiguration = new CorsConfiguration();
+		corsConfiguration.setAllowCredentials(true);
+		corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+		corsConfiguration.setAllowedHeaders(Arrays.asList("Origin", "Access-Control-Allow-Origin", "Content-Type",
+				"Accept", "Authorization", "Origin, Accept", "X-Requested-With",
+				"Access-Control-Request-Method", "Access-Control-Request-Headers"));
+		corsConfiguration.setExposedHeaders(Arrays.asList("Origin", "Content-Type", "Accept", "Authorization",
+				"Access-Control-Allow-Origin", "Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"));
+		corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+		UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
+		urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
+		return new CorsFilter(urlBasedCorsConfigurationSource);
+	}
 }

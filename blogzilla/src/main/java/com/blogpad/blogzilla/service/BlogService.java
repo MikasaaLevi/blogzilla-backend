@@ -2,6 +2,7 @@ package com.blogpad.blogzilla.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.blogpad.blogzilla.exception.BlogNotFoundException;
 import com.blogpad.blogzilla.exception.UserNotFoundException;
 import com.blogpad.blogzilla.model.Blog;
+import com.blogpad.blogzilla.model.Category;
 import com.blogpad.blogzilla.model.User;
 import com.blogpad.blogzilla.repository.BlogRepo;
 import com.blogpad.blogzilla.repository.CategoryRepo;
@@ -27,13 +29,13 @@ public class BlogService {
 	private BlogRepo blogRepository;
 	@Autowired
 	private CategoryRepo categoryRepository;
-	public BlogService(UserRepo userRepository, BlogRepo blogRepository, CategoryRepo categoryRepository) {
-		super();
-		this.userRepository = userRepository;
-		this.blogRepository = blogRepository;
-		this.categoryRepository = categoryRepository;
-	}
-	
+
+	/*
+	 * public BlogService(UserRepo userRepository, BlogRepo blogRepository,
+	 * CategoryRepo categoryRepository) { super(); this.userRepository =
+	 * userRepository; this.blogRepository = blogRepository; this.categoryRepository
+	 * = categoryRepository; }
+	 */
 	public User createUser(User user)
 	{
 		return userRepository.save(user);
@@ -46,6 +48,8 @@ public class BlogService {
 	
 	public List<User> listAllUsers()
 	{
+		List<User> list=userRepository.findAll();
+		System.out.println(list);
 		return userRepository.findAll();
 	}
 	
@@ -100,4 +104,9 @@ public class BlogService {
 		blogRepository.deleteBlogByBlogId(id);
 	}
 	
+	//category
+	public List<Category> findCategoryByBlogs(Set<Blog> blogs)
+	{
+		return categoryRepository.findByBlogsIn(blogs);
+	}
 }

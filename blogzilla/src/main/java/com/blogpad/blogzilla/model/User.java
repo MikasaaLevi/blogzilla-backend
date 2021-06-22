@@ -1,5 +1,6 @@
 package com.blogpad.blogzilla.model;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,9 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Entity
+@Entity(name = "bloguser")
 @Table(name = "bloguser")
-public class User {
+public class User implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -52,7 +53,7 @@ public class User {
 	}
 
 	public Long getuserId() {
-		return userId;
+		return this.userId;
 	}
 
 	public void setuserId(Long userId) {
@@ -60,7 +61,7 @@ public class User {
 	}
 
 	public String getUname() {
-		return uname;
+		return this.uname;
 	}
 
 	public void setUname(String uname) {
@@ -68,7 +69,7 @@ public class User {
 	}
 
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	public void setEmail(String email) {
@@ -76,7 +77,7 @@ public class User {
 	}
 
 	public String getPhoneNo() {
-		return phoneNo;
+		return this.phoneNo;
 	}
 
 	public void setPhoneNo(String phoneNo) {
@@ -84,7 +85,7 @@ public class User {
 	}
 
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
 
 	public void setPassword(String password) {
@@ -92,7 +93,7 @@ public class User {
 	}
 
 	public String getRole() {
-		return role;
+		return this.role;
 	}
 
 	public void setRole(String role) {
@@ -100,7 +101,7 @@ public class User {
 	}
 
 	public String getDob() {
-		return dob;
+		return this.dob;
 	}
 
 	public void setDob(String dob) {
@@ -108,7 +109,7 @@ public class User {
 	}
 
 	public Set<Blog> getBlogs() {
-		return blogs;
+		return this.blogs;
 	}
 
 	public void setBlogs(Set<Blog> blogs) {
@@ -118,7 +119,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", uname=" + uname + ", email=" + email + ", phoneNo=" + phoneNo + ", password="
-				+ password + ", role=" + role + ", dob=" + dob + ", blogs=" + blogs + "]";
+				+ password + ", role=" + role + ", dob=" + dob + "]";
 	}
 	
 }
