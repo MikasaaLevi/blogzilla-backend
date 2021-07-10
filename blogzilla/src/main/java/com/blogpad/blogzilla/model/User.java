@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity(name = "bloguser")
 @Table(name = "bloguser")
 public class User implements Serializable{
@@ -20,7 +22,7 @@ public class User implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(nullable = false, updatable = false)
-	private Long userId;
+	private Long userId; 
 	@Column(nullable = false, unique = true)
 	private String uname;
 	@Column(nullable = false, unique = true)
@@ -31,6 +33,7 @@ public class User implements Serializable{
 	private String role;
 	private String dob;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
 	private Set<Blog> blogs;

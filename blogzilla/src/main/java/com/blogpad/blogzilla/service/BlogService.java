@@ -2,6 +2,7 @@ package com.blogpad.blogzilla.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -38,11 +39,22 @@ public class BlogService {
 	 */
 	public User createUser(User user)
 	{
+		User existingUser=userRepository.findUserByUname(user.getUname()).orElse(null);
+		if(existingUser != null)
+			return null;
 		return userRepository.save(user);
 	}
 	
 	public User updateUser(User user)
 	{
+		if(user.getuserId() == null) {
+		User existingUser=userRepository.findUserByUname(user.getUname()).orElse(null);
+		if(existingUser != null)
+		{
+			Long id=existingUser.getuserId();
+			user.setuserId(id);
+		}
+		}
 		return userRepository.save(user);
 	}
 	
@@ -108,5 +120,10 @@ public class BlogService {
 	public List<Category> findCategoryByBlogs(Set<Blog> blogs)
 	{
 		return categoryRepository.findByBlogsIn(blogs);
+	}
+	
+	public List<Blog> findBlogByCategory(Set<Category> categories)
+	{
+		return blogRepository.findBlogByCategoriesIn(categories);
 	}
 }
